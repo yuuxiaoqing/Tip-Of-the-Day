@@ -53,15 +53,29 @@
                <h4>Splitting the bill made easy. Tip calculator </h4>
                <input type='file' onchange="readURL(this);" />
                <br>
+               <br>
+               
+               <!-- PHOTO STUFF -->
                <div id="photodiv">
                   <img id="blah" src="#" alt="your image" style="height:200px" />
                </div>
+               <br>
+               
+               <!-- Fill in Boxes -->
+               <form id="contactForm">
+               Total<input type="number" class="num1" />
+               Total owed<input type="number" class="num1" />
+               Tip<input type="number" id="sum" />
+               </form>
+               <span id="sum"></span>
                <div style="position: relative; width: 600px; height: 800px;">    
-
                   <div style="position: absolute; bottom: 5px; ">
                   <p><p>
+                  </div>
                </div>
-               </div>
+               
+               
+               
                <!-- Optional JavaScript -->
                <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
