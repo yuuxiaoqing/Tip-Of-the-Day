@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <!-- CSS -->
+      <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto" rel="stylesheet">
+      <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+
+      <title>Tip of the Day</title>
+   </head>
+   <center>
+   <body>
+      <div class="container" >
+         <div class="row-fluid">
+            <div class="col" style="background-color:#b3ecff" id="content">
+               <br>
+               <h1>Tip of the Day</h1>
+               <h4>Splitting the bill made easy. Tip calculator </h4>
+               <br>
+               
+               Sub-Total: ${{subtotal}}
+               <br>
+               Tax: ${{tax}}
+               <br>
+               Tax Percentage: {{tax_percent}} %
+               <br>
+               Tip<input type="number" id="tip" value="15"/>%
+               
+               <script>
+               function tipcalc() { 
+                  var subtotal = parseFloat({{subtotal}});
+                  var tax = parseFloat({{tax}});
+                  console.log(subtotal);
+                  var fn, ln, result; 
+                  fn = parseFloat(subtotal, 10);
+                  ln = parseFloat(parseFloat(document.getElementById("tip").value), 10);
+                  console.log(ln);
+                  tipresult =  (fn*(ln/100)); 
+                  totalresult = tipresult+tax+subtotal
+                  document.getElementById("tipresult").innerHTML = Math.round(tipresult*100.0)/100.0;
+                  document.getElementById("totalresult").innerHTML = Math.round(totalresult*100.0)/100.0;
+               }
+               </script> 
+               <button onclick="tipcalc()">Calculate Tip</button>
+               <br>
+               Tip: $<span id="tipresult"></span>
+               <br>
+               Total (tax and tip included): $<span id="totalresult"></span>
+               
+               <br><br>
+               Individual Cost of Items ordered:
+            
+               {% for item in items_price %}
+               
+                  <br><input type="checkbox" id="{{loop.index-1}}" value="{{ item }}">{{ items_name[loop.index-1] }} ${{ item }} 
+                  
+               {% endfor %}
+               
+               <br>
+               <button onclick="indcalc(); tipcalc();">Calculate Cost of My Meal</button>
+               
+               <script>
+               function indcalc() { 
+                  var tax_percent = parseFloat({{tax_percent}});
+                  tip = parseFloat(parseFloat(document.getElementById("tip").value), 10);
+                  var fn, ln = 0, result; 
+                  fn = parseFloat(tax_percent, 10);
+                  for (var i = 0; i < {{items_price}}.length; i++){
+                     if (document.getElementById(i).checked == true){
+                        ln = ln + parseFloat(parseFloat(document.getElementById(i).value), 10);
+                     }
+                  }
+                  console.log(tax_percent);
+                  console.log(tax_percent/100.0);
+                  console.log(tip);
+                  console.log(tip/100.0);
+                  individual_cost=(ln*(tax_percent/100.0)+ln*(tip/100.0));
+                  console.log(individual_cost);
+                  console.log(Math.round(individual_cost*100.0)/100.0);
+                  document.getElementById("individualtaxtipresult").innerHTML = Math.round(individual_cost*100.0)/100.0;
+                  document.getElementById("individualresult").innerHTML = Math.round((individual_cost+ln)*100.0)/100.0;
+                  
+               }
+               </script> 
+               
+               <br>
+               Tip+Tax for individual: $<span id="individualtaxtipresult"></span>
+               <br>
+               Total for individual (tax and tip included): $<span id="individualresult"></span>
+               
+   
+               
+               
+               <!-- Makes the website color right -->
+               <div style="position: relative; width: 600px; height: 600px;">    
+                  <div style="position: absolute; bottom: 5px; ">
+                  <p>Tip of the Day: {{tips_of_the_day}}<p>
+                  </div>
+               </div>
+               
+               
+               
+               <!-- Optional JavaScript -->
+               <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+               <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+               <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+               <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            </div>
+         </div>
+      </div>
+      
+   </body>
+   </center>
+   <!-- Required JS -->
+<!--       <script src="{{url_for('static', filename='tipcalculation.js')}}"></script> -->
+</html>
