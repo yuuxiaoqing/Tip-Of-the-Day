@@ -87,9 +87,14 @@ def upload_photo():
    print(subtotal)
    print(tax)
 
+   tax_percent= round(tax/subtotal*100,2)
+   for item in itemsPrice:
+      if item > subtotal:
+         itemsPrice.remove(item)
+
    f.close()
 
-   return render_template('index.html')
+   return render_template('text.html', subtotal=subtotal, tax=tax, tax_percent=tax_percent, items_price=itemsPrice, items_name=itemsName)
    
 
 #Gathered from here
