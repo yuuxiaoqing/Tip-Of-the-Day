@@ -11,6 +11,7 @@
       <!-- CSS -->
       <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto" rel="stylesheet">
       <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+      <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
       
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
       
@@ -22,36 +23,32 @@
    <body>
       <div class="container" >
          <div class="row-fluid">
-            <div class="col" style="background-color:#b3ecff" id="content">
+            <div class="col" style="background-image:url({{url_for('static', filename='tipofthedaybackground.png')}})" id="content">
                <br>
-               <h1>Tip of the Day</h1>
+               <h1><b>Tip of the Day</b></h1>
                <h4>Splitting the bill made easy. Tip calculator </h4>
                <br>
                <!-- PHOTO STUFF -->
                <form action="/upload" method="post" enctype="multipart/form-data" >
                   <span class="btn btn-default btn-file">
-                     Add a receipt <input type="file" name="image">
+                     Add a receipt <input type="file" name="image" id="imgreceipt" onchange="loadFile(event)">
                   </span>
 
                   <input type="submit" value="Upload your image" class="btn btn-primary">
                </form>
                <br>
-               <!-- Fill in Boxes -->
-               <form id="tipping">
-               Total<input type="number" name="total" />
-               Tax<input type="number" name="tax" />
-               Tip %<input type="number" id="tip" />
-               Total owed<input type="number" class="totalowed"/>
-               
-               </form>
-               <span id="sum"></span>
-               
-               
+               <img id="output"/>
+               <script>
+                  function loadFile(event){
+                     var output = document.getElementById('output');
+                     output.src = URL.createObjectURL(event.target.files[0])
+                  }
+               </script>
                
                <!-- Makes the website color right -->
                <div style="position: relative; width: 600px; height: 800px;">    
                   <div style="position: absolute; bottom: 5px; ">
-                  <p><p>
+                  <p><img src="{{url_for('static', filename='Cruzhacks2018TeamLogo.png')}}" style="height:200px;"/><p>
                   </div>
                </div>
                

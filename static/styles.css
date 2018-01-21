@@ -1,7 +1,15 @@
 body {
-    font-family: 'Roboto', sans-serif;
-    
+    font-family: 'Jura', sans-serif;
+    text-align: center;
 }
-.container{
-   background-color:#b3ecff;
+
+#checky{
+   text-align: left; /* reset text-align for IE */
+   margin: 0 auto; /* Center in other browsers */
+   width: 400px;
+}
+
+#bottomtip{
+   font-family: 'Jura', sans-serif;
+   text-align: center;
 }

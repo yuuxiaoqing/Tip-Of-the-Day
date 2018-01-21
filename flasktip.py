@@ -95,7 +95,7 @@ def upload_photo():
 
    f.close()
    randtip=random.randint(0, len(tips_of_the_day)-1)
-   return render_template('text.html', subtotal=subtotal, tax=tax, tax_percent=tax_percent, items_price=itemsPrice, items_name=itemsName, tips_of_the_day=tips_of_the_day[randtip])
+   return render_template('text.html', subtotal=round(subtotal,2), tax=round(tax,2), tax_percent=round(tax_percent,2), items_price=itemsPrice, items_name=itemsName, tips_of_the_day=tips_of_the_day[randtip])
    
 
 #Gathered from here
