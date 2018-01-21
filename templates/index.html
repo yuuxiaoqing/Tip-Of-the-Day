@@ -1,29 +1,3 @@
-<!-- 
-<!DOCTYPE html>
-<html>
-<head>
-
-<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-<script src="{{url_for('static', filename='photo.js')}}"></script>
-<meta charset=utf-8 />
-<title>JS Bin</title>
-<!~~[if IE]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]~~>
-<style>
-  article, aside, figure, footer, header, hgroup, 
-  menu, nav, section { display: block; }
-</style>
-</head>
-
-</html>
- -->
-
-
-
-
 <!doctype html>
 <html lang="en">
    <head>
@@ -38,6 +12,7 @@
       <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto" rel="stylesheet">
       <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
       
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
       
       <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -54,20 +29,33 @@
                <input type='file' onchange="readURL(this);" />
                <br>
                <br>
-               
                <!-- PHOTO STUFF -->
                <div id="photodiv">
                   <img id="blah" src="#" alt="your image" style="height:200px" />
                </div>
                <br>
                
+                 <form action="/upload" method="post" enctype="multipart/form-data" >
+                     <span class="btn btn-default btn-file">
+                       Browse <input type="file" name="image">
+                     </span>
+
+                   <input type="submit" value="Upload your image" class="btn btn-primary">
+                 </form>
+               
                <!-- Fill in Boxes -->
-               <form id="contactForm">
-               Total<input type="number" class="num1" />
-               Total owed<input type="number" class="num1" />
-               Tip<input type="number" id="sum" />
+               <form id="tipping">
+               Total<input type="number" name="total" />
+               Tax<input type="number" name="tax" />
+               Tip %<input type="number" id="tip" />
+               Total owed<input type="number" class="totalowed"/>
+               
                </form>
                <span id="sum"></span>
+               
+               
+               
+               <!-- Makes the website color right -->
                <div style="position: relative; width: 600px; height: 800px;">    
                   <div style="position: absolute; bottom: 5px; ">
                   <p><p>
