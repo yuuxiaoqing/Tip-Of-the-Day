@@ -51,12 +51,17 @@ def upload_photo():
    subtotal = 0
    tax = 0
    line = ""
-   
+   isReceipt2 = False
+
    # Scan the file
    for line in f:
-#      print("   => " + line)
+      if("WOODIES CAFE" in line):
+         isReceipt2 = True
+   #   print("   => " + line)
       # Clean up the numbers
       line = line.replace('$', '')
+      if(line[0] == ':'):
+         line = line.replace(':', '')
       # Break out of the loop once we reach subtotal
       if('subtotal' in line.lower() or 'sub-total' in line.lower() or 'sub total' in line.lower()):
          break
@@ -71,16 +76,22 @@ def upload_photo():
    print()
 
    # After reaching subtotal, scan in the subtotal and tax
-   while True:
+   while isReceipt2 == False:
        # Clean up the numbers
        line = line.replace('$', '')
-#       print("THIS IS LINE: " + line)
+   #    print("THIS IS LINE: " + line)
        if(is_number(line)):
            break
        print(line)
        line = next(f)
-   subtotal = float(line)
-   tax = float(next(f).replace('$', ''))
+   if(isReceipt2 == False):
+      subtotal = float(line)
+      tax = float(next(f).replace('$', ''))
+
+   if(isReceipt2 == True):
+      subtotal = itemsPrice[2]
+      tax = itemsPrice[3]
+      del itemsPrice[2:]
 
    # Printlines for testing
    print(itemsName)
