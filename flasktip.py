@@ -143,6 +143,6 @@ tips_of_the_day = ['"Feeling tipsy?"',
    '"Money is the root of all evil. Cleanse yourself here!"',
    '"We knead the dough!"',
    "If you need to look up to see the menu, you're probably in a restaraunt where you don't need to pay a tip.",
-   "Places like cafes, sit-down restaraunts, and hair dressers require tips (so don't leave without paying one!)",
+   "Places like cafes, sit-down restaurants, and hair dressers require tips (so don't leave without paying one!)",
    "Tips are generally between 10 and 20 percent of the cost of what you purchased (before tax)."
 ]
