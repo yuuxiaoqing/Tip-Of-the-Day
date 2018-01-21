@@ -26,23 +26,16 @@
                <br>
                <h1>Tip of the Day</h1>
                <h4>Splitting the bill made easy. Tip calculator </h4>
-               <input type='file' onchange="readURL(this);" />
-               <br>
                <br>
                <!-- PHOTO STUFF -->
-               <div id="photodiv">
-                  <img id="blah" src="#" alt="your image" style="height:200px" />
-               </div>
-               <br>
-               
-                 <form action="/upload" method="post" enctype="multipart/form-data" >
-                     <span class="btn btn-default btn-file">
-                       Browse <input type="file" name="image">
-                     </span>
+               <form action="/upload" method="post" enctype="multipart/form-data" >
+                  <span class="btn btn-default btn-file">
+                     Add a receipt <input type="file" name="image">
+                  </span>
 
-                   <input type="submit" value="Upload your image" class="btn btn-primary">
-                 </form>
-               
+                  <input type="submit" value="Upload your image" class="btn btn-primary">
+               </form>
+               <br>
                <!-- Fill in Boxes -->
                <form id="tipping">
                Total<input type="number" name="total" />
