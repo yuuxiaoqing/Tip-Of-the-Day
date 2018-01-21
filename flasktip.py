@@ -53,19 +53,27 @@ def upload_photo():
    
    # Scan the file
    for line in f:
+#      print("   => " + line)
       # Clean up the numbers
       line = line.replace('$', '')
+      # Break out of the loop once we reach subtotal
       if('subtotal' in line.lower() or 'sub-total' in line.lower() or 'sub total' in line.lower()):
          break
+      # Add names of items into an array
+      if(line[0].isdigit() and line[1] == ' '):
+         print(line[2:-1])
+         itemsName.append(line[2:-1])
+      # Add prices of items into an array
       if(is_number(line)):
-         print(line)
+         print(float(line))
          itemsPrice.append(float(line))
+   print()
 
    # After reaching subtotal, scan in the subtotal and tax
    while True:
        # Clean up the numbers
        line = line.replace('$', '')
-   #    print("THIS IS LINE: " + line)
+#       print("THIS IS LINE: " + line)
        if(is_number(line)):
            break
        print(line)
