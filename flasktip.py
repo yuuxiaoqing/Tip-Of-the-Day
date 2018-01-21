@@ -5,6 +5,7 @@ import io
 import os
 app = Flask(__name__)
 import fileinput
+import random
 
 # Imports the Google Cloud client library
 from google.cloud import vision
@@ -93,8 +94,8 @@ def upload_photo():
          itemsPrice.remove(item)
 
    f.close()
-
-   return render_template('text.html', subtotal=subtotal, tax=tax, tax_percent=tax_percent, items_price=itemsPrice, items_name=itemsName)
+   randtip=random.randint(0, len(tips_of_the_day)-1)
+   return render_template('text.html', subtotal=subtotal, tax=tax, tax_percent=tax_percent, items_price=itemsPrice, items_name=itemsName, tips_of_the_day=tips_of_the_day[randtip])
    
 
 #Gathered from here
@@ -125,6 +126,12 @@ def is_number(s):
  
     return False
 
-
-
-
+tips_of_the_day = ['"Feeling tipsy?"',
+   '"This is just the tip of the iceberg."',
+   '"If you fear change, leave it in the tip jar."',
+   '"Money is the root of all evil. Cleanse yourself here!"',
+   '"We knead the dough!"',
+   "If you need to look up to see the menu, you're probably in a restaraunt where you don't need to pay a tip.",
+   "Places like cafes, sit-down restaraunts, and hair dressers require tips (so don't leave without paying one!)",
+   "Tips are generally between 10 and 20 percent of the cost of what you purchased (before tax)."
+]

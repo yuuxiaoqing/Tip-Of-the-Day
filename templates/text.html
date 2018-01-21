@@ -34,7 +34,7 @@
                <br>
                Tax Percentage: {{tax_percent}} %
                <br>
-               Tip<input type="number" id="tip" defaultValue="15"/>%
+               Tip<input type="number" id="tip" value="15"/>%
                
                <script>
                function tipcalc() { 
@@ -59,22 +59,52 @@
                
                <br><br>
                Individual Cost of Items ordered:
-               {{items_price}}
-         
+            
+               {% for item in items_price %}
                
+                  <br><input type="checkbox" id="{{loop.index-1}}" value="{{ item }}">{{ items_name[loop.index-1] }} ${{ item }} 
+                  
+               {% endfor %}
                
+               <br>
+               <button onclick="indcalc(); tipcalc();">Calculate Cost of My Meal</button>
                
+               <script>
+               function indcalc() { 
+                  var tax_percent = parseFloat({{tax_percent}});
+                  tip = parseFloat(parseFloat(document.getElementById("tip").value), 10);
+                  var fn, ln = 0, result; 
+                  fn = parseFloat(tax_percent, 10);
+                  for (var i = 0; i < {{items_price}}.length; i++){
+                     if (document.getElementById(i).checked == true){
+                        ln = ln + parseFloat(parseFloat(document.getElementById(i).value), 10);
+                     }
+                  }
+                  console.log(tax_percent);
+                  console.log(tax_percent/100.0);
+                  console.log(tip);
+                  console.log(tip/100.0);
+                  individual_cost=(ln*(tax_percent/100.0)+ln*(tip/100.0));
+                  console.log(individual_cost);
+                  console.log(Math.round(individual_cost*100.0)/100.0);
+                  document.getElementById("individualtaxtipresult").innerHTML = Math.round(individual_cost*100.0)/100.0;
+                  document.getElementById("individualresult").innerHTML = Math.round((individual_cost+ln)*100.0)/100.0;
+                  
+               }
+               </script> 
                
-               
-               
+               <br>
+               Tip+Tax for individual: $<span id="individualtaxtipresult"></span>
+               <br>
+               Total for individual (tax and tip included): $<span id="individualresult"></span>
                
    
                
                
                <!-- Makes the website color right -->
-               <div style="position: relative; width: 600px; height: 800px;">    
+               <div style="position: relative; width: 600px; height: 600px;">    
                   <div style="position: absolute; bottom: 5px; ">
-                  <p><p>
+                  <p>Tip of the Day: {{tips_of_the_day}}<p>
                   </div>
                </div>
                
