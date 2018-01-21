@@ -4,6 +4,7 @@ from werkzeug import secure_filename
 import io
 import os
 app = Flask(__name__)
+import fileinput
 
 # Imports the Google Cloud client library
 from google.cloud import vision
@@ -33,11 +34,84 @@ def upload_photo():
    response = client.text_detection(image=image)
    labels = response.text_annotations
 
+   stringtext = ""
+   f = open("receipt.txt", "w")
    print('Labels:')
    for label in labels:
       print(label.description)
-   return 'file uploaded successfully'
-   # add your custom code to check that the uploaded file is a valid image and not a malicious file (out-of-scope for this post)
-   file.save(f)
+      f.write(label.description)
+      # stringtext+=label.description
+   f.close()
+   
+   
+   f = open('receipt.txt', 'r')
+   itemsName = []
+   itemsPrice = []
+   subtotal = 0
+   tax = 0
+   line = ""
+   
+   # Scan the file
+   for line in f:
+      # Clean up the numbers
+      line = line.replace('$', '')
+      if('subtotal' in line.lower() or 'sub-total' in line.lower() or 'sub total' in line.lower()):
+         break
+      if(is_number(line)):
+         print(line)
+         itemsPrice.append(float(line))
+
+   # After reaching subtotal, scan in the subtotal and tax
+   while True:
+       # Clean up the numbers
+       line = line.replace('$', '')
+   #    print("THIS IS LINE: " + line)
+       if(is_number(line)):
+           break
+       print(line)
+       line = next(f)
+   subtotal = float(line)
+   tax = float(next(f).replace('$', ''))
+
+   # Printlines for testing
+   print(itemsName)
+   print(itemsPrice)
+   print(subtotal)
+   print(tax)
+
+   f.close()
 
    return render_template('index.html')
+   
+
+#Gathered from here
+#https://www.pythoncentral.io/how-to-check-if-a-string-is-a-number-in-python-including-unicode/
+def is_number(s):
+    foundDecimal = False
+    for c in s:
+        if(c == '.'):
+            if(foundDecimal == False):
+                foundDecimal = True
+            else:
+                return False
+    if(foundDecimal == False):
+        return False
+
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+ 
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+ 
+    return False
+
+
+
+
